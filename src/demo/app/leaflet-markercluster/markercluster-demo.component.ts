@@ -34,8 +34,8 @@ export class MarkerClusterDemoComponent
 	markerClusterOptions: L.MarkerClusterGroupOptions;
 
 	// Generators for lat/lon values
-	generateLat() { return Math.random() * 180 - 90; }
-	generateLon() { return Math.random() * 360 - 180; }
+	generateLat() { return Math.random() * 360 - 180; }
+	generateLon() { return Math.random() * 180 - 90; }
 
 
 	ngOnInit() {
@@ -54,7 +54,7 @@ export class MarkerClusterDemoComponent
 
 		let data: any[] = [];
 
-		for (let i = 0; i < 1000; i++) {
+		for (let i = 0; i < 10000; i++) {
 
 			let icon = L.icon({
 				iconUrl: '2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
@@ -63,6 +63,8 @@ export class MarkerClusterDemoComponent
 
 			data.push(L.marker([ this.generateLon(), this.generateLat() ], { icon }));
 		}
+
+		this.markerClusterData = data;
 
 	}
 

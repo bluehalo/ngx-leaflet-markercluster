@@ -31,8 +31,10 @@ var LeafletMarkerClusterDirective = (function () {
         }
     };
     LeafletMarkerClusterDirective.prototype.setData = function (layers) {
-        this.markerClusterGroup.clearLayers();
-        this.markerClusterGroup.addLayers(layers);
+        if (null != this.markerClusterGroup) {
+            this.markerClusterGroup.clearLayers();
+            this.markerClusterGroup.addLayers(layers);
+        }
     };
     return LeafletMarkerClusterDirective;
 }());
