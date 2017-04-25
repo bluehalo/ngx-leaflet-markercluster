@@ -1,0 +1,36 @@
+<div class="container-fluid" style="margin-bottom: 30px;">
+
+	<div class="row">
+		<div class="col-md-10">
+
+			<h2>Marker Clusters</h2>
+
+			<!-- Control Form -->
+			<div class="col-sm-12 col-md-6 col-lg-4">
+
+				<form class="form-horizontal">
+					<button type="button" class="btn btn-default" (click)="generateData()">Generate Data</button>
+				</form>
+
+			</div>
+
+			<!-- Map -->
+			<div class="col-md-12" style="margin-top:16px;">
+
+				<div leaflet style="height: 400px;"
+					 [leafletOptions]="options"
+					 [leafletBaseLayers]="baseLayers"
+					 [leafletLayersControlOptions]="layersControlOptions"
+
+					 [leafletMarkerCluster]="markerClusterData"
+					 [leafletMarkerClusterOptions]="markerClusterOptions"
+					 (leafletMarkerClusterReady)="markerClusterReady($event)">
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+</div>

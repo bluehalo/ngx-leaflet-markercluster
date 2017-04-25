@@ -1,1 +1,1 @@
-export { ExampleModule } from './example/example.module';
+export { LeafletMarkerClusterModule } from './leaflet-markercluster/leaflet-markercluster.module';

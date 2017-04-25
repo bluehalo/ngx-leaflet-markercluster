@@ -91,7 +91,10 @@ gulp.task('rollup-js', () => {
 	return rollup.rollup({
 			entry: path.posix.join(assets.dist.dir, '/index.js'),
 			external: [
-				'@angular/core'
+				'@angular/core',
+				'leaflet',
+				'leaflet.markercluster',
+				'@asymmetrik/angular2-leaflet'
 			],
 			onwarn: (warning) => {
 				if ('THIS_IS_UNDEFINED' === warning.code) {
@@ -108,7 +111,9 @@ gulp.task('rollup-js', () => {
 				sourceMap: true,
 				banner: bannerString,
 				globals: {
-					'@angular/core': 'ng.core'
+					'@angular/core': 'ng.core',
+					'leaflet': 'L',
+					'@asymmetrik/angular2-leaflet': 'angular2Leaflet'
 				}
 			});
 		});

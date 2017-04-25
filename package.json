@@ -1,27 +1,31 @@
 {
-	"name": "@asymmetrik/angular2-template",
-	"artifactName": "angular2-template",
-	"description": "Angular 2 components template project",
-	"version": "1.3.0",
+	"name": "@asymmetrik/angular2-leaflet-markercluster",
+	"artifactName": "angular2-leaflet-markercluster",
+	"moduleName": "angular2LeafletMarkercluster",
+	"description": "Angular 2 components for leaflet markercluster plugin",
+	"version": "0.0.1",
+
 	"author": "Asymmetrik, Ltd.",
 	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",
 	"license": "MIT",
 
-	"scripts": {
-	},
-
-	"main": "dist/bundles/angular2-template.js",
+	"main": "dist/bundles/angular2-leaflet-markercluster.js",
 	"module": "dist/index.js",
 	"typings": "dist/index.d.ts",
 
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Asymmetrik/angular2-template.git"
+		"url": "https://github.com/Asymmetrik/angular2-leaflet-markercluster.git"
 	},
 
 	"peerDependencies": {
 		"@angular/core": ">=2",
-		"@angular/common": ">=2"
+		"@angular/common": ">=2",
+
+		"leaflet": "1",
+		"leaflet.markercluster": "1",
+
+		"@asymmetrik/angular2-leaflet": "2"
 	},
 
 	"devDependencies": {
@@ -31,6 +35,15 @@
 		"@angular/core": "4",
 		"@angular/platform-browser": "4",
 		"@angular/platform-browser-dynamic": "4",
+
+		"bootstrap": "3",
+
+		"leaflet": "1.0",
+		"@types/leaflet": "1.0",
+		"leaflet.markercluster": "1",
+		"@types/leaflet-markercluster": "1",
+
+		"@asymmetrik/angular2-leaflet": "2",
 
 		"core-js": "2.4",
 
