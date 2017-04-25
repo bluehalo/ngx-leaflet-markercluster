@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ExampleDemoModule } from './example/example-demo.module';
+import { MarkerClusterDemoModule } from './leaflet-markercluster/markercluster-demo.module';
 
 
 @NgModule({
 	imports: [
 		BrowserModule,
-		ExampleDemoModule
+		MarkerClusterDemoModule
 	],
 	declarations: [
 		AppComponent

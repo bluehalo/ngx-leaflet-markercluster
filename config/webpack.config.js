@@ -88,8 +88,8 @@ module.exports = () => {
 			{ test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'sass-loader' ] },
 
 			// Image file loader
-			{ test: /\.png$/, loader: 'url-loader?limit=10000&mimetype=image/png' },
-			{ test: /\.(gif|jpg|jpeg)$/, loader: 'url-loader?limit=10000' },
+			{ test: /\.png$/, loader: 'file-loader' },
+			{ test: /\.(gif|jpg|jpeg)$/, loader: 'file-loader' },
 
 			// Font file loader (mostly for bootstrap/font-awesome)
 			{ test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
@@ -113,7 +113,7 @@ module.exports = () => {
 	wpConfig.plugins.push(
 		new webpack.ProvidePlugin({
 			// Declare global libraries here (eg. D3, JQuery, etc)
-			// d3: 'd3'
+			'L': 'leaflet'
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
