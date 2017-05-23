@@ -51,17 +51,18 @@ This attribute is an attribute directive that initiates the marker cluster plugi
 
 #### leafletMarkerClusterOptions
 Input binding for the options to be passed directly to the marker cluster plugin upon creation.
-These options are only currently processed at creation time. 
+These options are only currently processed at creation time.
+
 The options object is passed through to the leaflet.markercluster object.
 Therefore, you can reference [their documentation](https://github.com/Leaflet/Leaflet.markercluster) for help configuring this plugin. 
 
 
 ### Getting a reference to the MarkerCluster Layer
-There is an optional output event emitter that will expose the marker cluster
+There is an optional output event emitter that will expose the markercluster group being used by the plugin called ```leafletMarkerClusterReady```.
+See the following example:
 
 ```html
 <div leaflet style="height: 400px;"
-     leafletDraw
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"
      (leafletMarkerClusterReady)="markerClusterReady($event)">
@@ -73,7 +74,6 @@ markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 	// Do stuff with group
 }
 ```
-
 
 
 ## Contribute
