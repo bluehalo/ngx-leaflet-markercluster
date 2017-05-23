@@ -3,7 +3,7 @@
 	"artifactName": "angular2-leaflet-markercluster",
 	"moduleName": "angular2LeafletMarkercluster",
 	"description": "Angular 2 components for leaflet markercluster plugin",
-	"version": "0.0.2",
+	"version": "0.0.3",
 
 	"author": "Asymmetrik, Ltd.",
 	"copyright": "Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved.",
@@ -41,7 +41,7 @@
 		"leaflet": "1.0",
 		"@types/leaflet": "1.0",
 		"leaflet.markercluster": "1",
-		"@types/leaflet-markercluster": "1",
+		"@types/leaflet.markercluster": "1",
 
 		"@asymmetrik/angular2-leaflet": "2",
 

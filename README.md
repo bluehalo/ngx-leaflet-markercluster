@@ -27,7 +27,7 @@ npm install @asymmetrik/angular2-leaflet-markercluster
 If you intend to use this library in a typescript project (utilizing the typings), you will need to also install the leaflet typings via npm:
 ```
 npm install @types/leaflet
-npm install @types/leaflet-markercluster
+npm install @types/leaflet.markercluster
 ```
 
 ## Usage
