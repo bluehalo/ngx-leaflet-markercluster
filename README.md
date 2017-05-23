@@ -39,7 +39,6 @@ You must specify an initial zoom/center and set of layers either via ```leafletO
 
 ```html
 <div leaflet style="height: 400px;"
-     leafletDraw
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions">
 </div>
