@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
+
 @Component({
 	selector: 'markercluster-demo',
 	templateUrl: './markercluster-demo.component.html'

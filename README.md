@@ -1,153 +1,80 @@
-# @asymmetrik/angular2-template
+# @asymmetrik/angular2-leaflet-markercluster
 
 [![Build Status][travis-image]][travis-url]
 
-> Template project for an Angular2 Component.
-> Provides a template project structure, Gulp build, and Webpack dev server configuration for packaging an Angular 2 component and for running a local demo of that component. 
+> Extension to the @asymmetrik/angular2-leaflet package for Angular 2+
+> Provides leaflet.markercluster integration into Angular 2 projects. Compatible with Leaflet v1.0.x and leaflet.markercluster v1.x
+
+> Supports Angular v4, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
+
 
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
-- [Structure](#structure)
 - [Contribute](#contribute)
 - [License](#license)
 
+
 ## Install
-This package is intended to be a starting point for a new project in a new repository. As such, installation involves forking the repository, or cloning it and optionally removing the .git directory to get rid of the repository history.
-
-Forking the repository will allow you to maintain a common history with this project. This will allow you to periodically perform git merges with this repository to pull in patches and improvements. If you want total freedom and are willing to manually merge changes in the future, feel free to delete the git history of your clone. 
-
-To get started, ensure that Node and NPM are installed.
-* Node and NPM (https://nodejs.org)
-* Gulp (https://gulpjs.org)
-
-Use npm to install gulp globally:
+Install the package and its peer dependencies via npm:
 ```
-npm install -g gulp
+npm install leaflet
+npm install leaflet.markercluster
+npm install @asymmetrik/angular2-leaflet
+npm install @asymmetrik/angular2-leaflet-markercluster
 ```
 
-Next, clone the repository and then install the npm packages in the project directory: 
+If you intend to use this library in a typescript project (utilizing the typings), you will need to also install the leaflet typings via npm:
 ```
-npm install
+npm install @types/leaflet
+npm install @types/leaflet-markercluster
 ```
-
-At this point, you should be ready to build the project.
-
 
 ## Usage
-This project uses Gulp as a build framework. There are two primary tasks: build and dev, which build distribution artifacts and run the development server respecitvely. 
 
-### Building Artifacts for Distribution
-To build the distribution bundle run:
+This plugin is used with the [Angular 2 Leaflet plugin](https://github.com/Asymmetrik/angular2-leaflet).
 
-```
-gulp build
-```
+To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
+You must specify an initial zoom/center and set of layers either via ```leafletOptions``` or by binding to ```leafletZoom```, ```leafletCenter```, and ```leafletLayers```.
 
-This task runs TSLint over the source Typescript to ensure code quality and consistency. 
-Then, it uses the Angular compiler (ngc) to compile the Typescript-based Angular source code into ES5 Javascript.
-Finally, it uses Rollup to bundle the generated JS files into a single distributable JS library using CommonJS.
-
-The build generates all artifacts necessary for consuming libraries to utilize Angular's Ahead-of-Time compiler.
-
-
-### Run the Demo for Development
-To run the demo using Webpack dev server, run
-```
-gulp dev
+```html
+<div leaflet style="height: 400px;"
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions">
+</div>
 ```
 
-This task will run Webpack dev server, watch all of the files in the project for changes, and make a server available where you can run the demo application.
-Gulp watch will monitor for changes to Typescript source and re-run the TSLint.
+Finally, to initialize and configure the leaflet markercluster plugin, use the following attribute directives:
 
-In dev mode, tsc (as opposed to ngc) is used. This means the bundle that is served by Webpack dev server is not utilizing AOT.
+### leafletMarkerCluster
+This attribute is an attribute directive that initiates the marker cluster plugin. 
 
-### Customize
-Once you've got your own copy of the template, you will need to adapt the template to your own project. To do so, make changes to the following files:
+#### leafletMarkerClusterOptions
+Input binding for the options to be passed directly to the marker cluster plugin upon creation.
+These options are only currently processed at creation time.
 
-#### ./package.json
-Modify all of the metadata about the package to be specific to your module.
-
-* dependencies - These should generally be empty. These dependencies will get packaged with your module in NPM, which is probably not what you intend.
-* peerDependencies - Specify all of the runtime dependencies of the module that someone using it will need. This would include any Angular2 dependencies referenced from within your code and any third party dependencies on which you depend.
-* devDependencies - You can specify all of the dependencies needed to build, run, and test your code in this project.
-
-#### ./LICENSE
-If you want the license to be something other than MIT, modify this file. You should make sure the package.json file is consistent with the LICENSE file.
-
-#### ./README.md
-You can modify this README.md file by removing this section and updating the other relevant content.
-
-#### ./src/index.ts
-This file should export your Angular 2 module(s). The build treats this as the primary library entry point. 
-
-#### ./src
-Obviously. Change stuff here.
-
-### Polyfills
-We're using a few polyfills to help with building and bundling
-
-#### core-js
-https://github.com/zloirock/core-js
-core-js bundles a bunch of es5/es6/es7 polyfills. We're importing the es6 and some of the es7 ones into our demo example application.
+The options object is passed through to the leaflet.markercluster object.
+Therefore, you can reference [their documentation](https://github.com/Leaflet/Leaflet.markercluster) for help configuring this plugin. 
 
 
-## Structure
-The template suggests a straightforward project structure for building out your component and the demo. Some of the following project structure is specific to the build and validation of assets and some is related to how the component is bundled for distribution.
+### Getting a reference to the MarkerCluster Layer
+There is an optional output event emitter that will expose the markercluster group being used by the plugin called ```leafletMarkerClusterReady```.
+See the following example:
 
-### ./ (Root of the project)
-**.editorconfig**
-EditorConfig config file. See http://editorconfig.org/. IDEs like IntelliJ will automatically pick up and enforce these baseline code formatting rules.
+```html
+<div leaflet style="height: 400px;"
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+     (leafletMarkerClusterReady)="markerClusterReady($event)">
+</div>
+```
 
-**./.gitignore**
-Git ignore file.
+```js
+markerClusterReady(markerCluster: L.MarkerClusterGroup) {
+	// Do stuff with group
+}
+```
 
-**./.travis.yml**
-Travis CI configuration file. See (https://travis-ci.org/). If you configure this correctly, you can get automated builds working via Travis.
-
-**./gulpfile.js**
-Gulp build file. The Gulp build currently has two primary modes: build and dev. Build will generate the bundle files, and dev will run Webpack Dev Server.
-
-**./tsconfig-aot.json**
-Typescript configuration file used by ngc to build the production component code. See https://www.typescriptlang.org/docs/tutorial.html.
-
-This config is used for bundling. The Gulp build runs ngc using this config file, and generates es5 Javascript, but uses es2015 modules. This is because the output of this compile step is fed into Rollup to generate the bundle files. Rollup will change the module format to umd. 
-
-
-**./tsconfig.json**
-Typescript configuration file used by webpack dev server to build the development component code. This file is essentially the same as ```./tsconfig-aot.json``` only it changes a few settings since it is not being bundled for external consumption and not using ngc.
-
-This config is used by Webpack dev server to compile the Typescript files in memory and serve them for the demo example application. In this config, we disable declaration since the d.ts files aren't needed, and we build to es5 with commonjs as the module system (so it's compatible with es5).
-
-**./tslint.json**
-TSLint configuration file. Specifies code conventions and Typescript static analysis checks. See https://palantir.github.io/tslint/.
-
-
-### ./config/ (Configuration)
-Contains most of the major config files used to build and develop
-
-**./config/assets.js**
-Centrally specifies paths used by the build
-
-**./config/webpack.config.js**
-Webpack configuration file used to build the component and demo and run Webpack Dev Server.
-
-
-### ./dist (Distributed Files)
-The build generates files in here.
-
-
-### ./src (Source Files)
-All the application source code including your component and the demo application for the component
-
-**./src/index.ts**
-This file should export everything you wish to publish as part of your Angular2 package 
-
-**./src/demo**
-Contains a lightweight Angular 2 application that is built and run using Webpack. Use the demo to embed examples directly in the project for the purposes of development, testing, and demonstration.
-
-**./src/!(demo)**
-This is up to you. A good basic convention is to package modules into directories. You can use the example component as a basic guideline.
 
 ## Contribute
 PRs accepted. If you are part of Asymmetrik, please make contributions on feature branches off of the ```develop``` branch. If you are outside of Asymmetrik, please fork our repo to make contributions.
@@ -155,5 +82,5 @@ PRs accepted. If you are part of Asymmetrik, please make contributions on featur
 ## License
 See LICENSE in repository for details.
 
-[travis-url]: https://travis-ci.org/Asymmetrik/angular2-template/
-[travis-image]: https://travis-ci.org/Asymmetrik/angular2-template.svg
+[travis-url]: https://travis-ci.org/Asymmetrik/angular2-leaflet-markercluster/
+[travis-image]: https://travis-ci.org/Asymmetrik/angular2-leaflet-markercluster.svg
