@@ -59,7 +59,22 @@ Therefore, you can reference [their documentation](https://github.com/Leaflet/Le
 
 ### Getting a reference to the MarkerCluster Layer
 There is an optional output event emitter that will expose the marker cluster
-(leafletMarkerClusterReady)="markerClusterReady($event)"
+
+```html
+<div leaflet style="height: 400px;"
+     leafletDraw
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+     (leafletMarkerClusterReady)="markerClusterReady($event)">
+</div>
+```
+
+```js
+markerClusterReady(markerCluster: L.MarkerClusterGroup) {
+	// Do stuff with group
+}
+```
+
 
 
 ## Contribute
