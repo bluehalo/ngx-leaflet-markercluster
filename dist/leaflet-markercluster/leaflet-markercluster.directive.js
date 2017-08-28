@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/angular2-leaflet';
+import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/ngx-leaflet';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 var LeafletMarkerClusterDirective = (function () {

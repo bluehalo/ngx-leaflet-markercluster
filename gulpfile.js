@@ -94,7 +94,7 @@ gulp.task('rollup-js', () => {
 				'@angular/core',
 				'leaflet',
 				'leaflet.markercluster',
-				'@asymmetrik/angular2-leaflet'
+				'@asymmetrik/ngx-leaflet'
 			],
 			onwarn: (warning) => {
 				if ('THIS_IS_UNDEFINED' === warning.code) {
@@ -107,13 +107,13 @@ gulp.task('rollup-js', () => {
 			return bundle.write({
 				dest: path.posix.join(assets.dist.bundleDir, `${pkg.artifactName}.js`),
 				format: 'umd',
-				moduleName: 'angular2Template',
+				moduleName: 'ngxTemplate',
 				sourceMap: true,
 				banner: bannerString,
 				globals: {
 					'@angular/core': 'ng.core',
 					'leaflet': 'L',
-					'@asymmetrik/angular2-leaflet': 'angular2Leaflet'
+					'@asymmetrik/ngx-leaflet': 'ngxLeaflet'
 				}
 			});
 		});

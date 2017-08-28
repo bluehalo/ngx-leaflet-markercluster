@@ -25,7 +25,7 @@
 		"leaflet": "1",
 		"leaflet.markercluster": "1",
 
-		"@asymmetrik/angular2-leaflet": "2"
+		"@asymmetrik/ngx-leaflet": "2"
 	},
 
 	"devDependencies": {
