@@ -2,6 +2,8 @@
 
 [![Build Status][travis-image]][travis-url]
 
+**IMPORTANT: This package has been renamed to @asymmetrik/ngx-leaflet-markercluster**
+
 > Extension to the @asymmetrik/angular2-leaflet package for Angular 2+
 > Provides leaflet.markercluster integration into Angular 2 projects. Compatible with Leaflet v1.0.x and leaflet.markercluster v1.x
 
