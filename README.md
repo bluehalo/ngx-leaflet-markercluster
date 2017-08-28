@@ -1,8 +1,12 @@
-# @asymmetrik/angular2-leaflet-markercluster
+# @asymmetrik/ngx-leaflet-markercluster
 
 [![Build Status][travis-image]][travis-url]
 
-> Extension to the @asymmetrik/angular2-leaflet package for Angular 2+
+[travis-url]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster/
+[travis-image]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster.svg
+
+
+> Extension to the @asymmetrik/ngx-leaflet package for Angular 2+
 > Provides leaflet.markercluster integration into Angular 2 projects. Compatible with Leaflet v1.0.x and leaflet.markercluster v1.x
 
 > Supports Angular v4, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
@@ -20,8 +24,8 @@ Install the package and its peer dependencies via npm:
 ```
 npm install leaflet
 npm install leaflet.markercluster
-npm install @asymmetrik/angular2-leaflet
-npm install @asymmetrik/angular2-leaflet-markercluster
+npm install @asymmetrik/ngx-leaflet
+npm install @asymmetrik/ngx-leaflet-markercluster
 ```
 
 If you intend to use this library in a typescript project (utilizing the typings), you will need to also install the leaflet typings via npm:
@@ -32,7 +36,7 @@ npm install @types/leaflet.markercluster
 
 ## Usage
 
-This plugin is used with the [Angular 2 Leaflet plugin](https://github.com/Asymmetrik/angular2-leaflet).
+This plugin is used with the [Angular 2 Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
 
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
 You must specify an initial zoom/center and set of layers either via ```leafletOptions``` or by binding to ```leafletZoom```, ```leafletCenter```, and ```leafletLayers```.
@@ -81,6 +85,3 @@ PRs accepted. If you are part of Asymmetrik, please make contributions on featur
 
 ## License
 See LICENSE in repository for details.
-
-[travis-url]: https://travis-ci.org/Asymmetrik/angular2-leaflet-markercluster/
-[travis-image]: https://travis-ci.org/Asymmetrik/angular2-leaflet-markercluster.svg

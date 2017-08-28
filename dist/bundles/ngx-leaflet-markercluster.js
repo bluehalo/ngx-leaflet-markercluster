@@ -1,4 +1,4 @@
-/*! @asymmetrik/angular2-leaflet-markercluster - 0.0.3 - Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved. + */
+/*! @asymmetrik/ngx-leaflet-markercluster - 0.1.0 - Copyright Asymmetrik, Ltd. 2007-2017 - All Rights Reserved. + */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@asymmetrik/angular2-leaflet'), require('leaflet'), require('leaflet.markercluster')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@asymmetrik/angular2-leaflet', 'leaflet', 'leaflet.markercluster'], factory) :
@@ -75,4 +75,4 @@ exports.LeafletMarkerClusterModule = LeafletMarkerClusterModule;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=angular2-leaflet-markercluster.js.map
+//# sourceMappingURL=ngx-leaflet-markercluster.js.map
