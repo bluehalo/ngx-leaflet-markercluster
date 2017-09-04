@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { MarkerClusterDemoComponent } from './markercluster-demo.component';
 import { LeafletMarkerClusterModule } from '../../../leaflet-markercluster/leaflet-markercluster.module';
 
-import { LeafletModule } from '@asymmetrik/angular2-leaflet';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
 @NgModule({

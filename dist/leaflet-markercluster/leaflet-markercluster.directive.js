@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/ngx-leaflet';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
-var LeafletMarkerClusterDirective = (function () {
+var LeafletMarkerClusterDirective = /** @class */ (function () {
     function LeafletMarkerClusterDirective(leafletDirective) {
         // Hexbin data binding
         this.markerData = [];
@@ -33,21 +33,21 @@ var LeafletMarkerClusterDirective = (function () {
             this.markerClusterGroup.addLayers(layers);
         }
     };
+    LeafletMarkerClusterDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[leafletMarkerCluster]',
+                },] },
+    ];
+    /** @nocollapse */
+    LeafletMarkerClusterDirective.ctorParameters = function () { return [
+        { type: LeafletDirective, },
+    ]; };
+    LeafletMarkerClusterDirective.propDecorators = {
+        'markerData': [{ type: Input, args: ['leafletMarkerCluster',] },],
+        'markerClusterOptions': [{ type: Input, args: ['leafletMarkerClusterOptions',] },],
+        'markerClusterReady': [{ type: Output, args: ['leafletMarkerClusterReady',] },],
+    };
     return LeafletMarkerClusterDirective;
 }());
 export { LeafletMarkerClusterDirective };
-LeafletMarkerClusterDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[leafletMarkerCluster]',
-            },] },
-];
-/** @nocollapse */
-LeafletMarkerClusterDirective.ctorParameters = function () { return [
-    { type: LeafletDirective, },
-]; };
-LeafletMarkerClusterDirective.propDecorators = {
-    'markerData': [{ type: Input, args: ['leafletMarkerCluster',] },],
-    'markerClusterOptions': [{ type: Input, args: ['leafletMarkerClusterOptions',] },],
-    'markerClusterReady': [{ type: Output, args: ['leafletMarkerClusterReady',] },],
-};
 //# sourceMappingURL=leaflet-markercluster.directive.js.map

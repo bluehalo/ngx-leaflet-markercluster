@@ -32,7 +32,7 @@ implements OnChanges, OnInit {
 
 		this.leafletDirective.init();
 
-		let map = this.leafletDirective.getMap();
+		const map = this.leafletDirective.getMap();
 		this.markerClusterGroup = L.markerClusterGroup(this.markerClusterOptions);
 
 		// Fire the ready event
