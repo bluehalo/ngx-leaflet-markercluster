@@ -55,11 +55,11 @@ export class MarkerClusterDemoComponent
 
 	generateData() {
 
-		let data: any[] = [];
+		const data: any[] = [];
 
 		for (let i = 0; i < 10000; i++) {
 
-			let icon = L.icon({
+			const icon = L.icon({
 				iconUrl: '2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
 				shadowUrl: '44a526eed258222515aa21eaffd14a96.png'
 			});

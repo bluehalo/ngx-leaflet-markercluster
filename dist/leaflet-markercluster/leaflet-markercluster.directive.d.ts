@@ -1,5 +1,3 @@
-/// <reference types="leaflet.markercluster" />
-/// <reference types="leaflet" />
 import { EventEmitter, OnChanges, OnInit, SimpleChange } from '@angular/core';
 import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/ngx-leaflet';
 import * as L from 'leaflet';
