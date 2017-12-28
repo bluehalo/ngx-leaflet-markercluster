@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LeafletMarkerClusterDirective } from './leaflet-markercluster.directive';
 var LeafletMarkerClusterModule = /** @class */ (function () {
     function LeafletMarkerClusterModule() {
