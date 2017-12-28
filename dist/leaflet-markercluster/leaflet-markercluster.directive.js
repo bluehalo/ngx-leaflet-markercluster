@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange } from '@angular/core';
 import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/ngx-leaflet';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
@@ -43,9 +43,9 @@ var LeafletMarkerClusterDirective = /** @class */ (function () {
         { type: LeafletDirective, },
     ]; };
     LeafletMarkerClusterDirective.propDecorators = {
-        'markerData': [{ type: Input, args: ['leafletMarkerCluster',] },],
-        'markerClusterOptions': [{ type: Input, args: ['leafletMarkerClusterOptions',] },],
-        'markerClusterReady': [{ type: Output, args: ['leafletMarkerClusterReady',] },],
+        "markerData": [{ type: Input, args: ['leafletMarkerCluster',] },],
+        "markerClusterOptions": [{ type: Input, args: ['leafletMarkerClusterOptions',] },],
+        "markerClusterReady": [{ type: Output, args: ['leafletMarkerClusterReady',] },],
     };
     return LeafletMarkerClusterDirective;
 }());
