@@ -35,7 +35,7 @@ npm install @types/leaflet.markercluster
 
 ## Usage
 
-This plugin is used with the [Angular 2 Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
+This plugin is used with the [Angular.io Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
 
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
 You must specify an initial zoom/center and set of layers either via ```leafletOptions``` or by binding to ```leafletZoom```, ```leafletCenter```, and ```leafletLayers```.
