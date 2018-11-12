@@ -5,10 +5,9 @@
 [travis-url]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster/
 [travis-image]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster.svg
 
-
 > Extension to the @asymmetrik/ngx-leaflet package for Angular.io
-> Provides leaflet.markercluster integration into Angular.io (v2) projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
-> Supports Angular v5, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
+> Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
+> Supports Angular v7, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
 
 
 ## Table of Contents
@@ -34,7 +33,6 @@ npm install @types/leaflet.markercluster
 ```
 
 ## Usage
-
 This plugin is used with the [Angular.io Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
 
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
@@ -79,8 +77,18 @@ markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 ```
 
 
+
+## Changelog
+
+### 2.0.0
+- Angular 7
+- Purely npm build
+- Started using the HtmlWebpackPlugin to generate the index.html file in the dist dir, so you don't need to add `/src/demo` to the end of the URL to hit the demo.
+
+
 ## Contribute
 PRs accepted. If you are part of Asymmetrik, please make contributions on feature branches off of the ```develop``` branch. If you are outside of Asymmetrik, please fork our repo to make contributions.
+
 
 ## License
 See LICENSE in repository for details.
