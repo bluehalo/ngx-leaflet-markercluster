@@ -20,26 +20,34 @@
 ## Install
 Install the package and its peer dependencies via npm:
 ```
-npm install leaflet
-npm install leaflet.markercluster
-npm install @asymmetrik/ngx-leaflet
-npm install @asymmetrik/ngx-leaflet-markercluster
+npm install leaflet @asymmetrik/ngx-leaflet
+npm install leaflet.markercluster @asymmetrik/ngx-leaflet-markercluster
 ```
 
 If you intend to use this library in a typescript project (utilizing the typings), you will need to also install the leaflet typings via npm:
 ```
-npm install @types/leaflet
-npm install @types/leaflet.markercluster
+npm install @types/leaflet @types/leaflet.markercluster
 ```
 
 ## Usage
 This plugin is used with the [Angular.io Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
 
+The first step is to follow the instructions to get @asymmetrik/ngx-leaflet working.
+Next, follow a similar process to install and configure this plugin.
+Generally, the steps are:
+
+- Install this package and its dependencies (see above).
+- Import the leaflet.markercluster stylesheet (i.e., `node_modules/dist/MarkerCluster.Default.css`). Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
+- Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
+- Create and configure a map (see docs below and/or demo) 
+
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
 You must specify an initial zoom/center and set of layers either via ```leafletOptions``` or by binding to ```leafletZoom```, ```leafletCenter```, and ```leafletLayers```.
 
 ```html
-<div leaflet style="height: 400px;"
+<div style="height: 400px;"
+     leaflet
+     [leafletOptions]="options"
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions">
 </div>
@@ -48,7 +56,7 @@ You must specify an initial zoom/center and set of layers either via ```leafletO
 Finally, to initialize and configure the leaflet markercluster plugin, use the following attribute directives:
 
 ### leafletMarkerCluster
-This attribute is an attribute directive that initiates the marker cluster plugin. 
+This attribute is an attribute directive that initiates the marker cluster plugin and binds the marker data. 
 
 #### leafletMarkerClusterOptions
 Input binding for the options to be passed directly to the marker cluster plugin upon creation.
@@ -63,7 +71,9 @@ There is an optional output event emitter that will expose the markercluster gro
 See the following example:
 
 ```html
-<div leaflet style="height: 400px;"
+<div style="height: 400px;"
+     leaflet
+     [leafletOptions]="options"
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"
      (leafletMarkerClusterReady)="markerClusterReady($event)">
@@ -75,7 +85,6 @@ markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 	// Do stuff with group
 }
 ```
-
 
 
 ## Changelog
