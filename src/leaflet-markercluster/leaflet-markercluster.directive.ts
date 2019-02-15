@@ -35,14 +35,14 @@ implements OnChanges, OnInit {
 		const map = this.leafletDirective.getMap();
 		this.markerClusterGroup = L.markerClusterGroup(this.markerClusterOptions);
 
-		// Fire the ready event
-		this.markerClusterReady.emit(this.markerClusterGroup);
-
 		// Add the marker cluster group to the map
 		this.markerClusterGroup.addTo(map);
 
 		// Set the data
 		this.setData(this.markerData);
+
+		// Fire the ready event
+		this.markerClusterReady.emit(this.markerClusterGroup);
 
 	}
 
