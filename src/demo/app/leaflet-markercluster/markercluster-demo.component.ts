@@ -33,7 +33,7 @@ export class MarkerClusterDemoComponent
 
 	// Marker cluster stuff
 	markerClusterGroup: L.MarkerClusterGroup;
-	markerClusterData: any[] = [];
+	markerClusterData: L.Marker[] = [];
 	markerClusterOptions: L.MarkerClusterGroupOptions;
 
 	// Generators for lat/lon values
@@ -43,7 +43,7 @@ export class MarkerClusterDemoComponent
 
 	ngOnInit() {
 
-		this.generateData();
+		this.markerClusterData = this.generateData(1000);
 
 	}
 
@@ -53,11 +53,11 @@ export class MarkerClusterDemoComponent
 
 	}
 
-	generateData() {
+	generateData(count: number): L.Marker[] {
 
-		const data: any[] = [];
+		const data: L.Marker[] = [];
 
-		for (let i = 0; i < 10000; i++) {
+		for (let i = 0; i < count; i++) {
 
 			const icon = L.icon({
 				iconUrl: '2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
@@ -67,7 +67,7 @@ export class MarkerClusterDemoComponent
 			data.push(L.marker([ this.generateLon(), this.generateLat() ], { icon }));
 		}
 
-		this.markerClusterData = data;
+		return data;
 
 	}
 
