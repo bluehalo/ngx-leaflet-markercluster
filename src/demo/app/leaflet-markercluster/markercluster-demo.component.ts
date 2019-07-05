@@ -43,7 +43,7 @@ export class MarkerClusterDemoComponent
 
 	ngOnInit() {
 
-		this.markerClusterData = this.generateData(1000);
+		this.refreshData();
 
 	}
 
@@ -51,6 +51,10 @@ export class MarkerClusterDemoComponent
 
 		this.markerClusterGroup = group;
 
+	}
+
+	refreshData(): void {
+		this.markerClusterData = this.generateData(1000);
 	}
 
 	generateData(count: number): L.Marker[] {

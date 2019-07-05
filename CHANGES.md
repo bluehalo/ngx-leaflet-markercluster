@@ -1,6 +1,9 @@
 # Changelog
 
-## 2.1.0
+## 3.0.0
+- Angular 8
+
+### 2.1.0
 - Firing the markercluster ready event after the marker cluster group is added to the map.
 
 ## 2.0.0
