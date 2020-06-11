@@ -7,7 +7,7 @@
 
 > Extension to the @asymmetrik/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
-> Supports Angular v8, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
+> Supports Angular v9, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
 
 
 ## Table of Contents
@@ -37,7 +37,7 @@ Next, follow a similar process to install and configure this plugin.
 Generally, the steps are:
 
 - Install this package and its dependencies (see above).
-- Import the leaflet.markercluster stylesheet (i.e., `node_modules/dist/MarkerCluster.Default.css`). Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
+- Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css`). Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
 - Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
 - Create and configure a map (see docs below and/or demo) 
 

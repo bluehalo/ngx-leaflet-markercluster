@@ -6,34 +6,19 @@
  */
 
 // Polyfills
-import 'core-js/es6';
-import 'core-js/es7/reflect';
+import 'core-js';
 
 
 // Global Imports
 import 'bootstrap/dist/css/bootstrap.css';
-
-import 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
-import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 // This addresses a weird thing with how Leaflet handles icon URLs. See README for details.
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
+import 'leaflet/dist/images/marker-icon-2x.png';
 
-
-// Angular Imports
-import '@angular/common';
-import '@angular/core';
-import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
-
-
-// Angular Third-Party
-import '@asymmetrik/ngx-leaflet';
 
 // Other Dependencies
-import 'rxjs';
 import 'zone.js';
