@@ -8,8 +8,4 @@ import { LeafletMarkerClusterDirective } from './leaflet-markercluster.directive
 })
 export class LeafletMarkerClusterModule {
 
-	static forRoot(): ModuleWithProviders {
-		return { ngModule: LeafletMarkerClusterModule, providers: [] };
-	}
-
 }
