@@ -3,7 +3,7 @@
 	"artifactName": "ngx-leaflet-markercluster",
 	"moduleName": "ngxLeafletMarkercluster",
 	"description": "Angular.io components for leaflet markercluster plugin",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"author": "Asymmetrik, Ltd.",
 	"copyright": "Copyright Asymmetrik, Ltd. 2007-2020 - All Rights Reserved.",
 	"license": "MIT",
@@ -34,10 +34,10 @@
 	"peerDependencies": {
 		"@angular/core": ">=10",
 		"@angular/common": ">=10",
-		"leaflet": "2",
+		"leaflet": "1",
 		"leaflet.markercluster": "1",
 		"@asymmetrik/ngx-leaflet": "8",
-		"tslib": "1"
+		"tslib": "2"
 	},
 	"devDependencies": {
 		"@angular/common": "10",
