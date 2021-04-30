@@ -37,7 +37,8 @@ Next, follow a similar process to install and configure this plugin.
 Generally, the steps are:
 
 - Install this package and its dependencies (see above).
-- Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css`). Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
+- Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css` and `.../MarkerCluster.css` for animations).  
+   - Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
 - Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
 - Create and configure a map (see docs below and/or demo) 
 
