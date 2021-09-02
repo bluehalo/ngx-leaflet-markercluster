@@ -71,7 +71,7 @@ export class MarkerClusterDemoComponent
 				shadowUrl: 'a0c6cc1401c107b501efee6477816891.png'
 			});
 
-			data.push(L.marker([ this.generateLon(), this.generateLat() ], { icon }));
+			data.push(L.marker([ this.generateLat(), this.generateLon() ], { icon }));
 		}
 
 		return data;
