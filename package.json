@@ -62,7 +62,7 @@
 		"html-webpack-plugin": "4",
 		"leaflet": "1",
 		"leaflet.markercluster": "1",
-		"node-sass": "4",
+		"node-sass": "7",
 		"resolve-url-loader": "3",
 		"rollup": "2",
 		"rxjs": "6",
