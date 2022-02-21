@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
+import { Control } from 'leaflet';
+import LayersOptions = Control.LayersOptions;
 
 @Component({
 	selector: 'markercluster-demo',
@@ -22,7 +24,7 @@ export class MarkerClusterDemoComponent
 	};
 
 	// Values to bind to Leaflet Directive
-	layersControlOptions = { position: 'bottomright' };
+	layersControlOptions: LayersOptions = { position: 'bottomright' };
 	baseLayers = {
 		'Open Street Map': this.LAYER_OSM.layer
 	};
@@ -66,9 +68,9 @@ export class MarkerClusterDemoComponent
 			const icon = L.icon({
 				iconSize: [ 25, 41 ],
 				iconAnchor: [ 13, 41 ],
-				iconUrl: '2b3e1faf89f94a4835397e7a43b4f77d.png',
-				iconRetinaUrl: '680f69f3c2e6b90c1812a813edf67fd7.png',
-				shadowUrl: 'a0c6cc1401c107b501efee6477816891.png'
+				iconUrl: 'assets/leaflet/marker-icon.png',
+				iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+				shadowUrl: 'assets/leaflet/marker-shadow.png'
 			});
 
 			data.push(L.marker([ this.generateLon(), this.generateLat() ], { icon }));

@@ -1,0 +1,23 @@
+{
+  "name": "@asymmetrik/ngx-leaflet-markercluster",
+  "description": "Angular.io components for the Leaflet Markercluster plugin",
+  "version": "13.0.0",
+  "author": "Asymmetrik, Ltd.",
+  "copyright": "Copyright Asymmetrik, A BlueHalo Company 2007-2022 - All Rights Reserved.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Asymmetrik/ngx-leaflet.git"
+  },
+
+  "peerDependencies": {
+    "@angular/common": "13",
+    "@angular/core": "13",
+    "@asymmetrik/ngx-leaflet": "13",
+    "leaflet": "1",
+    "leaflet.markercluster": "1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
