@@ -7,7 +7,7 @@
 
 > Extension to the @asymmetrik/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
-> Supports Angular v10, Ahead-of-Time compilation (AOT), and use in Angular-CLI based projects
+> Supports Angular v13 and Ivy, and use in Angular-CLI based projects
 
 
 ## Table of Contents
