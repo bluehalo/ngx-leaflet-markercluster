@@ -73,7 +73,7 @@ export class MarkerClusterDemoComponent
 				shadowUrl: 'assets/leaflet/marker-shadow.png'
 			});
 
-			data.push(L.marker([ this.generateLon(), this.generateLat() ], { icon }));
+			data.push(L.marker([ this.generateLat(), this.generateLon() ], { icon }));
 		}
 
 		return data;
