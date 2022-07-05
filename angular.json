@@ -146,5 +146,7 @@
       }
     }
   },
-  "defaultProject": "ngx-leaflet-markercluster"
+  "cli": {
+    "analytics": false
+  }
 }

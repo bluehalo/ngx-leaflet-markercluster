@@ -1,5 +1,11 @@
 # Changelog
 
+## 14.0.0
+- Angular 14
+
+## 13.0.0
+- Angular 13
+
 ## 5.0.0
 - Angular 10
 
