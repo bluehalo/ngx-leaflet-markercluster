@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-leaflet": [
+      "ngx-leaflet-markercluster": [
         "dist/ngx-leaflet-markercluster"
       ]
     },
