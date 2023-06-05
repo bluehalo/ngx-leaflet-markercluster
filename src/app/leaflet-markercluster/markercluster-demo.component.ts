@@ -19,6 +19,7 @@ export class MarkerClusterDemoComponent
 		enabled: false,
 		layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
+			noWrap: true,
 			attribution: 'Open Street Map'
 		})
 	};
@@ -29,8 +30,8 @@ export class MarkerClusterDemoComponent
 		'Open Street Map': this.LAYER_OSM.layer
 	};
 	options = {
-		zoom: 3,
-		center: L.latLng([ 46.879966, -121.726909 ])
+		zoom: 2,
+		center: L.latLng([ 0, 0 ])
 	};
 
 	// Marker cluster stuff
@@ -39,8 +40,8 @@ export class MarkerClusterDemoComponent
 	markerClusterOptions: L.MarkerClusterGroupOptions;
 
 	// Generators for lat/lon values
-	generateLat() { return Math.random() * 360 - 180; }
-	generateLon() { return Math.random() * 180 - 90; }
+	generateLat() { return Math.random() * 180 - 90; }
+	generateLon() { return Math.random() * 360 - 180; }
 
 
 	ngOnInit() {
