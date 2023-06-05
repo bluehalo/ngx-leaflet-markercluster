@@ -7,7 +7,7 @@
 
 > Extension to the @asymmetrik/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
-> Supports Angular v15 and Ivy, and use in Angular-CLI based projects
+> Supports Angular v16 and Ivy, and use in Angular-CLI based projects
 
 
 ## Table of Contents
@@ -89,7 +89,7 @@ markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 
 
 ## Contribute
-PRs accepted. If you are part of Asymmetrik, please make contributions on feature branches off of the ```develop``` branch. If you are outside of Asymmetrik, please fork our repo to make contributions.
+PRs accepted. If you are part of BlueHalo, please make contributions on feature branches off of the ```develop``` branch. If you are outside of BlueHalo, please fork our repo to make contributions.
 
 
 ## License

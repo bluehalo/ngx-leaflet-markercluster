@@ -1,5 +1,8 @@
 # Changelog
 
+## 16.0.0
+- Angular 16
+
 ## 15.0.0
 - Angular 15
 
