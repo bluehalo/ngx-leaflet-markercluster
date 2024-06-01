@@ -1,11 +1,11 @@
-# @asymmetrik/ngx-leaflet-markercluster
+# @bluehalo/ngx-leaflet-markercluster
 
 [![Build Status][travis-image]][travis-url]
 
 [travis-url]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster/
 [travis-image]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster.svg
 
-> Extension to the @asymmetrik/ngx-leaflet package for Angular.io
+> Extension to the @bluehalo/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
 > Supports Angular v17 and Ivy, and use in Angular-CLI based projects
 
@@ -20,8 +20,8 @@
 ## Install
 Install the package and its peer dependencies via npm:
 ```
-npm install leaflet @asymmetrik/ngx-leaflet
-npm install leaflet.markercluster @asymmetrik/ngx-leaflet-markercluster
+npm install leaflet @bluehalo/ngx-leaflet
+npm install leaflet.markercluster @bluehalo/ngx-leaflet-markercluster
 ```
 
 If you intend to use this library in a typescript project (utilizing the typings), you will need to also install the leaflet typings via npm:
@@ -30,15 +30,15 @@ npm install @types/leaflet @types/leaflet.markercluster
 ```
 
 ## Usage
-This plugin is used with the [Angular.io Leaflet plugin](https://github.com/Asymmetrik/ngx-leaflet).
+This plugin is used with the [Angular.io Leaflet plugin](https://github.com/bluehalo/ngx-leaflet).
 
-The first step is to follow the instructions to get @asymmetrik/ngx-leaflet working.
+The first step is to follow the instructions to get @bluehalo/ngx-leaflet working.
 Next, follow a similar process to install and configure this plugin.
 Generally, the steps are:
 
 - Install this package and its dependencies (see above).
 - Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css` and `.../MarkerCluster.css` for animations).  
-   - Follow the same process as documented in `@asymmetrik/ngx-leaflet`.
+   - Follow the same process as documented in `@bluehalo/ngx-leaflet`.
 - Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
 - Create and configure a map (see docs below and/or demo) 
 
