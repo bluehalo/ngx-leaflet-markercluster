@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange } from '@angular/core';
 
-import { LeafletDirective, LeafletDirectiveWrapper } from '@asymmetrik/ngx-leaflet';
+import { LeafletDirective, LeafletDirectiveWrapper } from '@bluehalo/ngx-leaflet';
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
