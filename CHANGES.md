@@ -1,5 +1,10 @@
 # Changelog
 
+## 18.0.0
+- Angular 18
+- This is the last version of this package that will be published under the @asymmetrik namespace.
+- This and future versions will be released under the @bluehalo namespace.
+
 ## 17.0.0
 - Angular 17
 
