@@ -1,7 +1,7 @@
 {
-  "name": "@asymmetrik/ngx-leaflet-markercluster",
+  "name": "@bluehalo/ngx-leaflet-markercluster",
   "description": "Angular.io components for the Leaflet Markercluster plugin",
-  "version": "18.0.0",
+  "version": "18.0.1",
   "author": "BlueHalo",
   "copyright": "Copyright BlueHalo 2007-2024 - All Rights Reserved.",
   "license": "MIT",
