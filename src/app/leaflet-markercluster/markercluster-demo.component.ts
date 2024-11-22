@@ -6,8 +6,9 @@ import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
 
 @Component({
-	selector: 'markercluster-demo',
-	templateUrl: './markercluster-demo.component.html'
+    selector: 'markercluster-demo',
+    templateUrl: './markercluster-demo.component.html',
+    standalone: false
 })
 export class MarkerClusterDemoComponent
 	implements OnInit {

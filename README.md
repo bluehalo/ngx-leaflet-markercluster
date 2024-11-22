@@ -7,10 +7,7 @@
 
 > Extension to the @bluehalo/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
-> Supports Angular v18 and Ivy, and use in Angular-CLI based projects
-
-> NOTE: This is the last version of the package that will be published under the @asymmetrik namespace. This and future versions
-> will be published under the @bluehalo namespace.
+> Supports Angular v19 and Ivy, and use in Angular-CLI based projects
 
 
 ## Table of Contents
