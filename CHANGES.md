@@ -1,5 +1,8 @@
 # Changelog
 
+## 19.0.0
+- Angular 19
+
 ## 18.0.0
 - Angular 18
 - This is the last version of this package that will be published under the @asymmetrik namespace.
