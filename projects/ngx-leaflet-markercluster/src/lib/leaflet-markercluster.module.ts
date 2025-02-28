@@ -4,7 +4,7 @@ import { LeafletMarkerClusterDirective } from './leaflet-markercluster.directive
 
 @NgModule({
 	exports: [ LeafletMarkerClusterDirective ],
-	declarations: [ LeafletMarkerClusterDirective ]
+	imports: [ LeafletMarkerClusterDirective ],
 })
 export class LeafletMarkerClusterModule {
 

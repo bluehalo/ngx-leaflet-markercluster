@@ -4,11 +4,16 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
+import { LeafletMarkerClusterDirective } from '../../../projects/ngx-leaflet-markercluster/src/public-api';
 
 @Component({
     selector: 'markercluster-demo',
     templateUrl: './markercluster-demo.component.html',
-    standalone: false
+    imports: [
+		LeafletModule,
+		LeafletMarkerClusterDirective,
+	]
 })
 export class MarkerClusterDemoComponent
 	implements OnInit {
