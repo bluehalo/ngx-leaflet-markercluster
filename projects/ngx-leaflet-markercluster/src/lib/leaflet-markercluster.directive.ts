@@ -6,8 +6,7 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 
 @Directive({
-    selector: '[leafletMarkerCluster]',
-    standalone: false
+	selector: '[leafletMarkerCluster]',
 })
 export class LeafletMarkerClusterDirective
 implements OnChanges, OnInit {

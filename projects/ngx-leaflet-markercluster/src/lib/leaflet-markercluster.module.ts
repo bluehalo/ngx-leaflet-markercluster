@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { LeafletMarkerClusterDirective } from './leaflet-markercluster.directive';
 
 @NgModule({
-	exports: [ LeafletMarkerClusterDirective ],
-	declarations: [ LeafletMarkerClusterDirective ]
+    imports: [ LeafletMarkerClusterDirective ],
+    exports: [ LeafletMarkerClusterDirective ]
 })
 export class LeafletMarkerClusterModule {
 

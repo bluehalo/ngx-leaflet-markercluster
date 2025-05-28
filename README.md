@@ -38,13 +38,13 @@ Generally, the steps are:
 - Install this package and its dependencies (see above).
 - Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css` and `.../MarkerCluster.css` for animations).  
    - Follow the same process as documented in `@bluehalo/ngx-leaflet`.
-- Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
+- Import the `LeafletMarkerClusterDirective` into your Angular application module and local module (if applicable).
 - Create and configure a map (see docs below and/or demo) 
 
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.
 You must specify an initial zoom/center and set of layers either via ```leafletOptions``` or by binding to ```leafletZoom```, ```leafletCenter```, and ```leafletLayers```.
 
-```html
+```angular181html
 <div style="height: 400px;"
      leaflet
      [leafletOptions]="options"
@@ -70,7 +70,7 @@ Therefore, you can reference [their documentation](https://github.com/Leaflet/Le
 There is an optional output event emitter that will expose the markercluster group being used by the plugin called ```leafletMarkerClusterReady```.
 See the following example:
 
-```html
+```angular181html
 <div style="height: 400px;"
      leaflet
      [leafletOptions]="options"
@@ -80,7 +80,7 @@ See the following example:
 </div>
 ```
 
-```js
+```typescript
 markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 	// Do stuff with group
 }
