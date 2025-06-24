@@ -38,7 +38,7 @@ Generally, the steps are:
 - Install this package and its dependencies (see above).
 - Import the leaflet.markercluster stylesheet (i.e., `node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css` and `.../MarkerCluster.css` for animations).  
    - Follow the same process as documented in `@bluehalo/ngx-leaflet`.
-- Import the `LeafletMarkerClusterModule` into your Angular application module and local module (if applicable).
+- Import the `LeafletMarkerClusterDirective` into your Angular component (if applicable).
 - Create and configure a map (see docs below and/or demo) 
 
 To create a map, use the ```leaflet``` attribute directive. This directive must appear first.

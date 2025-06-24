@@ -2,27 +2,26 @@ import { Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 
 import { LeafletDirective, LeafletDirectiveWrapper } from '@bluehalo/ngx-leaflet';
 
-import * as L from 'leaflet';
+import { Layer, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet';
 import 'leaflet.markercluster';
 
 @Directive({
     selector: '[leafletMarkerCluster]',
-    standalone: false
 })
 export class LeafletMarkerClusterDirective
 implements OnChanges, OnInit {
 
 	leafletDirective: LeafletDirectiveWrapper;
-	markerClusterGroup: L.MarkerClusterGroup;
+	markerClusterGroup: MarkerClusterGroup;
 
 	// Hexbin data binding
-	@Input('leafletMarkerCluster') markerData: L.Layer[] = [];
+	@Input('leafletMarkerCluster') markerData: Layer[] = [];
 
 	// Options binding
-	@Input('leafletMarkerClusterOptions') markerClusterOptions: L.MarkerClusterGroupOptions;
+	@Input('leafletMarkerClusterOptions') markerClusterOptions: MarkerClusterGroupOptions;
 
 	// Fired when the marker cluster is created
-	@Output('leafletMarkerClusterReady') markerClusterReady: EventEmitter<L.MarkerClusterGroup> = new EventEmitter<L.MarkerClusterGroup>();
+	@Output('leafletMarkerClusterReady') markerClusterReady: EventEmitter<MarkerClusterGroup> = new EventEmitter<MarkerClusterGroup>();
 
 
 	constructor(leafletDirective: LeafletDirective) {
@@ -34,7 +33,7 @@ implements OnChanges, OnInit {
 		this.leafletDirective.init();
 
 		const map = this.leafletDirective.getMap();
-		this.markerClusterGroup = L.markerClusterGroup(this.markerClusterOptions);
+		this.markerClusterGroup = window.L.markerClusterGroup(this.markerClusterOptions);
 
 		// Add the marker cluster group to the map
 		this.markerClusterGroup.addTo(map);
@@ -56,7 +55,7 @@ implements OnChanges, OnInit {
 
 	}
 
-	private setData(layers: L.Layer[]) {
+	private setData(layers: Layer[]) {
 
 		// Ignore until the markerClusterGroup exists
 		if (null != this.markerClusterGroup) {
