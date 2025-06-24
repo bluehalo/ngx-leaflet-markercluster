@@ -3,7 +3,7 @@
   "description": "Angular.io components for the Leaflet Markercluster plugin",
   "version": "20.0.1",
   "author": "BlueHalo",
-  "copyright": "Copyright BlueHalo 2007-2024 - All Rights Reserved.",
+  "copyright": "Copyright BlueHalo 2007-2025 - All Rights Reserved.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,13 +11,13 @@
   },
 
   "peerDependencies": {
-    "@angular/common": "19",
-    "@angular/core": "19",
-    "@bluehalo/ngx-leaflet": "19",
+    "@angular/common": "20",
+    "@angular/core": "20",
+    "@bluehalo/ngx-leaflet": "20",
     "leaflet": "1",
     "leaflet.markercluster": "1"
   },
   "dependencies": {
-    "tslib": "^2.4.1"
+    "tslib": "^2.8.0"
   }
 }
