@@ -1,5 +1,8 @@
 # Changelog
 
+## 21.0.0
+- Angular 21
+- 
 ## 20.0.0
 - Angular 20
 
