@@ -11,9 +11,9 @@
   },
 
   "peerDependencies": {
-    "@angular/common": "20",
-    "@angular/core": "20",
-    "@bluehalo/ngx-leaflet": "20",
+    "@angular/common": "21",
+    "@angular/core": "21",
+    "@bluehalo/ngx-leaflet": "21",
     "leaflet": "1",
     "leaflet.markercluster": "1"
   },
