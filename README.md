@@ -1,9 +1,9 @@
 # @bluehalo/ngx-leaflet-markercluster
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status][ci-image]][ci-url]
 
-[travis-url]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster/
-[travis-image]: https://travis-ci.org/Asymmetrik/ngx-leaflet-markercluster.svg
+[ci-url]: https://github.com/bluehalo/ngx-leaflet-markercluster/actions/workflows/ci.yml
+[ci-image]: https://github.com/bluehalo/ngx-leaflet-markercluster/actions/workflows/ci.yml/badge.svg
 
 > Extension to the @bluehalo/ngx-leaflet package for Angular.io
 > Provides leaflet.markercluster integration into Angular.io projects. Compatible with Leaflet v1.x and leaflet.markercluster v1.x
