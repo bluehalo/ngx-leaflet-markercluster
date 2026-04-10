@@ -3,7 +3,7 @@
   "description": "Angular.io components for the Leaflet Markercluster plugin",
   "version": "21.0.1",
   "author": "BlueHalo",
-  "copyright": "Copyright BlueHalo 2007-2025 - All Rights Reserved.",
+  "copyright": "Copyright (c) BlueHalo LLC",
   "license": "MIT",
   "repository": {
     "type": "git",
