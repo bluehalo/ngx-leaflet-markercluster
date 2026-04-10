@@ -60,7 +60,7 @@ implements OnChanges, OnInit {
 		// Ignore until the markerClusterGroup exists
 		if (null != this.markerClusterGroup) {
 			this.markerClusterGroup.clearLayers();
-			this.markerClusterGroup.addLayers(layers);
+			this.markerClusterGroup.addLayers(layers ?? []);
 		}
 
 	}
