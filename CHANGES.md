@@ -1,8 +1,14 @@
 # Changelog
 
+## 21.0.1
+- Fix: guard against null/undefined input in `setData` to prevent crash when bound marker data is initially undefined
+- Docs: add missing import statements to `markerClusterReady` usage example
+- Docs: add Troubleshooting section for `L.markerClusterGroup is not a function` (esbuild/Angular 17+ interop)
+- CI: replace Travis CI with GitHub Actions
+
 ## 21.0.0
 - Angular 21
-- 
+
 ## 20.0.0
 - Angular 20
 
