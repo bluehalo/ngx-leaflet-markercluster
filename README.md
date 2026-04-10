@@ -81,6 +81,15 @@ See the following example:
 </div>
 ```
 
+In your component file, add these imports at the top:
+
+```typescript
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
+```
+
+Then add the callback method:
+
 ```typescript
 markerClusterReady(markerCluster: L.MarkerClusterGroup) {
 	// Do stuff with group
