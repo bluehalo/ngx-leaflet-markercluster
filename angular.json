@@ -142,7 +142,12 @@
           "options": {
             "main": "projects/ngx-leaflet-markercluster/src/test.ts",
             "tsConfig": "projects/ngx-leaflet-markercluster/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-leaflet-markercluster/karma.conf.js"
+            "karmaConfig": "projects/ngx-leaflet-markercluster/karma.conf.js",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "codeCoverage": true
           }
         }
       }

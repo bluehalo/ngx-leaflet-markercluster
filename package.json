@@ -8,7 +8,7 @@
     "demo": "ng serve ngx-leaflet-markercluster-demo",
     "build": "ng build ngx-leaflet-markercluster --configuration production && copyfiles README.md LICENSE CHANGES.md ./dist/ngx-leaflet-markercluster",
     "watch": "ng build ngx-leaflet-markercluster --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test ngx-leaflet-markercluster"
   },
   "private": true,
   "dependencies": {
