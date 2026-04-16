@@ -1,6 +1,6 @@
 # @bluehalo/ngx-leaflet-markercluster — Cookbook
 
-> Common patterns and troubleshooting tips. For installation and quick-start usage, see the [README](../README.md).
+> Common patterns and examples. For installation and quick-start usage, see the [README](../README.md).
 
 ## Troubleshooting: `L.markerClusterGroup is not a function`
 

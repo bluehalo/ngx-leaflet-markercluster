@@ -69,13 +69,18 @@ Full API documentation is in [docs/API.md](docs/API.md). It covers:
 
 ## Cookbook
 
-Common patterns and troubleshooting tips are in [docs/cookbook.md](docs/cookbook.md), including:
+Common patterns and examples are in [docs/cookbook.md](docs/cookbook.md), including:
 - [Troubleshooting: `L.markerClusterGroup is not a function`](docs/cookbook.md#troubleshooting-lmarkerclustergroup-is-not-a-function) — three fixes for the esbuild/CommonJS interop issue
 
 
 ## Contribute
-PRs accepted. If you are part of bluehalo, please make contributions on feature branches off of the ```develop``` branch. If you are outside of bluehalo, please fork our repo to make contributions.
+PRs accepted. Please make contributions on feature branches and open a pull request against `master`.
 
 
 ## License
-See LICENSE in repository for details.
+See [LICENSE](LICENSE) for details.
+
+
+## Credits
+**[Leaflet](http://leafletjs.com/)** Is an awesome mapping package.
+**[leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)** Is the underlying clustering plugin this library wraps.
