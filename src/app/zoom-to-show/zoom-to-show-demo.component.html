@@ -6,35 +6,38 @@
 			<h2>zoomToShowLayer — Zone.js Timing</h2>
 
 			<p>
-				<code>MarkerClusterGroup.zoomToShowLayer(marker, callback)</code> zooms and pans until
-				the target marker is visible, then fires a callback. When called inside Angular's zone,
-				<code>zone.js</code> patches <code>requestAnimationFrame</code> and alters cluster icon
-				rendering timing, creating a race condition where
-				<code>leaflet.markercluster</code> silently drops the callback.
-				The fix is <code>NgZone.runOutsideAngular()</code>.
+				<code>MarkerClusterGroup.zoomToShowLayer(marker, callback)</code> zooms and pans
+				until the target marker is visible, then fires a callback. When called inside
+				Angular's zone, <code>zone.js</code> patches <code>requestAnimationFrame</code>
+				and wraps every animation frame in a zone task that triggers change detection.
+				This creates contention with <code>leaflet.markercluster</code>'s icon-update
+				timing, causing the callback to be <strong>silently dropped</strong>.
 			</p>
 			<p>
-				The target marker is at <strong>40.7128, -74.0060 (NYC)</strong>, clustered with 49
-				nearby markers. Reset the view, then try each button to compare. The broken version
-				may not fail on every attempt — the bug is timing-dependent.
+				The target is <strong>NYC (40.71, -74.00)</strong>, clustered with 199 other
+				nearby markers. <em>Run Trials</em> executes 10 attempts inside the zone, each
+				with a RAF pressure loop to amplify the timing race.
+				<em>Fixed</em> should always succeed.
 			</p>
 
 			<!-- Controls -->
 			<form class="form" style="margin-bottom: 16px;">
 				<button type="button" class="btn btn-secondary mr-2"
 						[disabled]="!map || !markerClusterGroup"
-						(click)="reset()">Reset View</button>
+						(click)="resetView()">Reset View</button>
 				<button type="button" class="btn btn-danger mr-2"
 						[disabled]="!map || !markerClusterGroup"
-						(click)="zoomBroken()">Zoom to Show (broken — inside zone)</button>
+						(click)="zoomBroken()">
+					@if (isRunning) { Running… } @else { Run {{ trialCount }} Trials (broken — inside zone) }
+				</button>
 				<button type="button" class="btn btn-success"
-						[disabled]="!map || !markerClusterGroup"
+						[disabled]="!map || !markerClusterGroup || isRunning"
 						(click)="zoomFixed()">Zoom to Show (fixed — outside zone)</button>
 			</form>
 
 			<!-- Status log -->
 			@if (log.length > 0) {
-				<div class="alert alert-secondary" style="margin-bottom: 16px; font-family: monospace;">
+				<div class="alert alert-secondary" style="margin-bottom: 16px; font-family: monospace; font-size: 0.9em;">
 					@for (entry of log; track $index) {
 						<div [class.text-success]="entry.type === 'success'"
 							 [class.text-warning]="entry.type === 'warning'">

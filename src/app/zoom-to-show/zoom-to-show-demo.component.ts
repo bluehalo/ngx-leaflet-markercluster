@@ -10,6 +10,17 @@ interface LogEntry {
 	type: 'info' | 'success' | 'warning';
 }
 
+const TRIAL_COUNT = 10;
+
+
+// How long to wait (ms) after resetting the map before each trial.
+// Must be > 300ms to let leaflet.markercluster's _enqueue timeout settle.
+const RESET_SETTLE_MS = 500;
+
+// Per-trial callback timeout (ms). The zoom animation + animationend typically
+// completes in < 1 second; 3 seconds is ample.
+const TRIAL_TIMEOUT_MS = 3000;
+
 @Component({
 	selector: 'zoom-to-show-demo',
 	templateUrl: './zoom-to-show-demo.component.html',
@@ -22,8 +33,7 @@ export class ZoomToShowDemoComponent implements OnInit {
 
 	private readonly INITIAL_ZOOM = 2;
 	private readonly INITIAL_CENTER = L.latLng([0, 0]);
-	// Target marker location — clustered with all other NYC-area markers at low zoom
-	private readonly TARGET_LATLNG = L.latLng(40.7128, -74.0060);
+	private readonly TARGET_LATLNG = L.latLng(40.7128, -74.0060); // NYC
 
 	LAYER_OSM = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 18,
@@ -42,9 +52,12 @@ export class ZoomToShowDemoComponent implements OnInit {
 	targetMarker: L.Marker;
 	map: L.Map;
 
-	log: LogEntry[] = [];
+	readonly trialCount = TRIAL_COUNT;
 
-	private callbackTimer: ReturnType<typeof setTimeout> | null = null;
+	log: LogEntry[] = [];
+	isRunning = false;
+
+	private cancelTrials = false;
 
 	constructor(private zone: NgZone) {}
 
@@ -61,15 +74,14 @@ export class ZoomToShowDemoComponent implements OnInit {
 			shadowUrl: 'assets/leaflet/marker-shadow.png'
 		});
 
-		// The target marker is the one we'll ask zoomToShowLayer to reveal
 		this.targetMarker = L.marker(this.TARGET_LATLNG, { icon });
 
 		const markers: L.Marker[] = [this.targetMarker];
-
-		// 49 more markers scattered near NYC so they form a deep cluster at low zoom
-		for (let i = 0; i < 49; i++) {
-			const lat = this.TARGET_LATLNG.lat + (Math.random() - 0.5) * 4;
-			const lng = this.TARGET_LATLNG.lng + (Math.random() - 0.5) * 4;
+		// More markers spread over a wider area to deepen the cluster hierarchy
+		// and give the animation engine more work to do during each trial.
+		for (let i = 0; i < 199; i++) {
+			const lat = this.TARGET_LATLNG.lat + (Math.random() - 0.5) * 8;
+			const lng = this.TARGET_LATLNG.lng + (Math.random() - 0.5) * 8;
 			markers.push(L.marker(L.latLng(lat, lng), { icon }));
 		}
 
@@ -84,83 +96,127 @@ export class ZoomToShowDemoComponent implements OnInit {
 		this.markerClusterGroup = group;
 	}
 
-	reset() {
-		this.clearTimer();
+	resetView() {
+		this.cancelTrials = true;
+		this.isRunning = false;
 		this.log = [];
 		this.map.setView(this.INITIAL_CENTER, this.INITIAL_ZOOM);
 	}
 
 	/**
-	 * Broken pattern: zoomToShowLayer called inside Angular's zone.
+	 * Broken pattern — runs TRIAL_COUNT trials inside Angular's zone.
 	 *
-	 * zone.js patches requestAnimationFrame. This changes the timing of
-	 * leaflet.markercluster's internal cluster icon rendering relative to map
-	 * events. When a moveend event fires while a cluster icon is still being
-	 * rebuilt, leaflet.markercluster silently drops the callback — it reaches
-	 * a code path where neither the "icon present" nor "spiderfy needed" branch
-	 * executes, so the callback is never called.
+	 * Each trial starts a requestAnimationFrame loop inside the zone to simulate
+	 * the overhead a busy Angular app creates during a zoom animation. zone.js
+	 * patches requestAnimationFrame; Leaflet's animation loop also uses RAF.
+	 * The resulting contention between zone change-detection cycles and
+	 * leaflet.markercluster's icon-update timing is what triggers the silent drop.
 	 *
-	 * The bug is intermittent and timing-dependent — it may not reproduce on
-	 * every click. Use the 5-second timeout below to observe it.
+	 * Not every trial will fail — the race is probabilistic — but running
+	 * TRIAL_COUNT attempts makes it likely to surface at least once.
 	 */
-	zoomBroken() {
-		this.prepareZoom('Calling zoomToShowLayer() inside Angular zone...');
+	async zoomBroken() {
+		if (this.isRunning) return;
+		this.cancelTrials = false;
+		this.isRunning = true;
+		this.log = [{ message: `Running ${TRIAL_COUNT} trials inside Angular zone…`, type: 'info' }];
 
-		this.markerClusterGroup.zoomToShowLayer(this.targetMarker, () => {
-			this.onCallbackFired();
-		});
+		let successes = 0;
+		let failures = 0;
+
+		for (let trial = 1; trial <= TRIAL_COUNT; trial++) {
+			if (this.cancelTrials) break;
+
+			// Reset to initial zoom so the target marker is clustered again
+			this.map.setView(this.INITIAL_CENTER, this.INITIAL_ZOOM);
+			await this.sleep(RESET_SETTLE_MS);
+			if (this.cancelTrials) break;
+
+			// Start a requestAnimationFrame loop inside the zone. zone.js patches
+			// RAF, so each frame becomes a zone task and triggers change detection.
+			// This is the same overhead a real Angular app has during animation.
+			let rafActive = true;
+			const rafLoop = () => { if (rafActive) requestAnimationFrame(rafLoop); };
+			requestAnimationFrame(rafLoop);
+
+			// Also flood with setInterval(0) tasks — each one runs change detection.
+			const intervalId = setInterval(() => {}, 0);
+
+			const fired = await new Promise<boolean>(resolve => {
+				const timer = setTimeout(() => resolve(false), TRIAL_TIMEOUT_MS);
+				this.markerClusterGroup.zoomToShowLayer(this.targetMarker, () => {
+					clearTimeout(timer);
+					resolve(true);
+				});
+			});
+
+			rafActive = false;
+			clearInterval(intervalId);
+
+			if (fired) successes++; else failures++;
+
+			this.log = [
+				...this.log,
+				{
+					message: `Trial ${trial}: ${fired ? '✅ callback fired' : '⚠️ callback dropped'}`,
+					type: fired ? 'success' : 'warning'
+				}
+			];
+
+			await this.sleep(100);
+		}
+
+		if (!this.cancelTrials) {
+			const allGood = failures === 0;
+			this.log = [
+				...this.log,
+				{
+					message: `${successes}/${TRIAL_COUNT} fired, ${failures}/${TRIAL_COUNT} dropped`,
+					type: allGood ? 'success' : 'warning'
+				}
+			];
+		}
+
+		this.isRunning = false;
 	}
 
 	/**
-	 * Fixed pattern: zoomToShowLayer called outside Angular's zone.
+	 * Fixed pattern — calls zoomToShowLayer outside Angular's zone.
 	 *
-	 * runOutsideAngular() keeps zone.js out of Leaflet's event loop, restoring
-	 * native requestAnimationFrame timing. leaflet.markercluster's cluster icon
-	 * rendering and map event sequencing work as intended, so the callback fires
-	 * reliably. Re-enter the zone inside the callback to trigger change detection.
+	 * runOutsideAngular() prevents zone.js from wrapping Leaflet's RAF callbacks
+	 * in zone tasks. The cluster icon update and map event sequencing run with
+	 * native timing, so the callback fires reliably. Re-enter the zone inside
+	 * the callback to trigger change detection.
 	 */
 	zoomFixed() {
-		this.prepareZoom('Calling zoomToShowLayer() outside Angular zone...');
+		if (this.isRunning) return;
+		this.cancelTrials = true;
+		this.log = [{ message: 'Calling zoomToShowLayer() outside Angular zone…', type: 'info' }];
+
+		const timer = setTimeout(() => {
+			this.zone.run(() => {
+				this.log = [
+					...this.log,
+					{ message: '⚠️  3 seconds elapsed — callback never fired.', type: 'warning' }
+				];
+			});
+		}, 3000);
 
 		this.zone.runOutsideAngular(() => {
 			this.markerClusterGroup.zoomToShowLayer(this.targetMarker, () => {
-				this.zone.run(() => this.onCallbackFired());
+				this.zone.run(() => {
+					clearTimeout(timer);
+					this.log = [
+						...this.log,
+						{ message: '✅  Callback fired — marker is now visible.', type: 'success' }
+					];
+				});
 			});
 		});
 	}
 
-	private prepareZoom(message: string) {
-		this.clearTimer();
-		this.log = [{ message, type: 'info' }];
-
-		// Fallback: if the callback hasn't fired in 5 seconds, report it as dropped
-		this.callbackTimer = setTimeout(() => {
-			this.zone.run(() => {
-				this.log = [
-					...this.log,
-					{
-						message: '⚠️  5 seconds elapsed — callback never fired (it was silently dropped).',
-						type: 'warning'
-					}
-				];
-				this.callbackTimer = null;
-			});
-		}, 5000);
-	}
-
-	private onCallbackFired() {
-		this.clearTimer();
-		this.log = [
-			...this.log,
-			{ message: '✅  Callback fired — marker is now visible.', type: 'success' }
-		];
-	}
-
-	private clearTimer() {
-		if (this.callbackTimer !== null) {
-			clearTimeout(this.callbackTimer);
-			this.callbackTimer = null;
-		}
+	private sleep(ms: number): Promise<void> {
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
 }
