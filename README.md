@@ -70,6 +70,7 @@ Full API documentation is in [docs/API.md](docs/API.md). It covers:
 ## Cookbook
 
 Common patterns and examples are in [docs/cookbook.md](docs/cookbook.md), including:
+- [zoomToShowLayer Callback Not Firing](docs/cookbook.md#zoomtoshowlayer-callback-not-firing) — using `NgZone.runOutsideAngular()` to fix the zone.js timing issue
 - [Troubleshooting: `L.markerClusterGroup is not a function`](docs/cookbook.md#troubleshooting-lmarkerclustergroup-is-not-a-function) — three fixes for the esbuild/CommonJS interop issue
 
 
