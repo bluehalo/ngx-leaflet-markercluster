@@ -181,38 +181,82 @@ export class ZoomToShowDemoComponent implements OnInit {
 	}
 
 	/**
-	 * Fixed pattern — calls zoomToShowLayer outside Angular's zone.
+	 * Fixed pattern — runs the same TRIAL_COUNT trials with the same zone pressure
+	 * as zoomBroken(), but calls zoomToShowLayer outside Angular's zone.
 	 *
 	 * runOutsideAngular() prevents zone.js from wrapping Leaflet's RAF callbacks
-	 * in zone tasks. The cluster icon update and map event sequencing run with
-	 * native timing, so the callback fires reliably. Re-enter the zone inside
-	 * the callback to trigger change detection.
+	 * in zone tasks. Even with the RAF pressure loop running in the background,
+	 * Leaflet's own animation runs with native timing, so the callback fires
+	 * reliably every trial. Re-enter the zone inside the callback so that the
+	 * log update triggers change detection.
 	 */
-	zoomFixed() {
+	async zoomFixed() {
 		if (this.isRunning) return;
-		this.cancelTrials = true;
-		this.log = [{ message: 'Calling zoomToShowLayer() outside Angular zone…', type: 'info' }];
+		this.cancelTrials = false;
+		this.isRunning = true;
+		this.log = [{ message: `Running ${TRIAL_COUNT} trials outside Angular zone…`, type: 'info' }];
 
-		const timer = setTimeout(() => {
-			this.zone.run(() => {
-				this.log = [
-					...this.log,
-					{ message: '⚠️  3 seconds elapsed — callback never fired.', type: 'warning' }
-				];
-			});
-		}, 3000);
+		let successes = 0;
+		let failures = 0;
 
-		this.zone.runOutsideAngular(() => {
-			this.markerClusterGroup.zoomToShowLayer(this.targetMarker, () => {
-				this.zone.run(() => {
-					clearTimeout(timer);
-					this.log = [
-						...this.log,
-						{ message: '✅  Callback fired — marker is now visible.', type: 'success' }
-					];
+		for (let trial = 1; trial <= TRIAL_COUNT; trial++) {
+			if (this.cancelTrials) break;
+
+			this.map.setView(this.INITIAL_CENTER, this.INITIAL_ZOOM);
+			await this.sleep(RESET_SETTLE_MS);
+			if (this.cancelTrials) break;
+
+			// Same zone pressure as the broken trials — RAF loop + setInterval flood.
+			// The difference is only in how zoomToShowLayer is called below.
+			let rafActive = true;
+			const rafLoop = () => { if (rafActive) requestAnimationFrame(rafLoop); };
+			requestAnimationFrame(rafLoop);
+
+			const intervalId = setInterval(() => {}, 0);
+
+			const fired = await new Promise<boolean>(resolve => {
+				const timer = setTimeout(() => resolve(false), TRIAL_TIMEOUT_MS);
+
+				// Only this call differs from the broken version:
+				// zoomToShowLayer runs outside the zone, preserving native RAF timing.
+				this.zone.runOutsideAngular(() => {
+					this.markerClusterGroup.zoomToShowLayer(this.targetMarker, () => {
+						this.zone.run(() => {
+							clearTimeout(timer);
+							resolve(true);
+						});
+					});
 				});
 			});
-		});
+
+			rafActive = false;
+			clearInterval(intervalId);
+
+			if (fired) successes++; else failures++;
+
+			this.log = [
+				...this.log,
+				{
+					message: `Trial ${trial}: ${fired ? '✅ callback fired' : '⚠️ callback dropped'}`,
+					type: fired ? 'success' : 'warning'
+				}
+			];
+
+			await this.sleep(100);
+		}
+
+		if (!this.cancelTrials) {
+			const allGood = failures === 0;
+			this.log = [
+				...this.log,
+				{
+					message: `${successes}/${TRIAL_COUNT} fired, ${failures}/${TRIAL_COUNT} dropped`,
+					type: allGood ? 'success' : 'warning'
+				}
+			];
+		}
+
+		this.isRunning = false;
 	}
 
 	private sleep(ms: number): Promise<void> {

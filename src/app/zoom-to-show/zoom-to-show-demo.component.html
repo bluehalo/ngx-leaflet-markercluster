@@ -15,9 +15,10 @@
 			</p>
 			<p>
 				The target is <strong>NYC (40.71, -74.00)</strong>, clustered with 199 other
-				nearby markers. <em>Run Trials</em> executes 10 attempts inside the zone, each
-				with a RAF pressure loop to amplify the timing race.
-				<em>Fixed</em> should always succeed.
+				nearby markers. Both buttons run <strong>{{ trialCount }} trials</strong> with
+				identical zone pressure (a RAF loop + setInterval flood inside the Angular zone).
+				The only difference is whether <code>zoomToShowLayer</code> itself is called
+				inside or outside the zone.
 			</p>
 
 			<!-- Controls -->
@@ -31,8 +32,10 @@
 					@if (isRunning) { Running… } @else { Run {{ trialCount }} Trials (broken — inside zone) }
 				</button>
 				<button type="button" class="btn btn-success"
-						[disabled]="!map || !markerClusterGroup || isRunning"
-						(click)="zoomFixed()">Zoom to Show (fixed — outside zone)</button>
+						[disabled]="!map || !markerClusterGroup"
+						(click)="zoomFixed()">
+					@if (isRunning) { Running… } @else { Run {{ trialCount }} Trials (fixed — outside zone) }
+				</button>
 			</form>
 
 			<!-- Status log -->
