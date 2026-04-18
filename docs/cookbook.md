@@ -14,6 +14,13 @@ event fires while a cluster icon is still being rebuilt, `leaflet.markercluster`
 path where neither the "icon present" nor "spiderfy needed" branch executes, so the callback is
 never scheduled. The bug is intermittent because it depends on animation frame timing.
 
+> **Reproduction note:** This was originally reported against Angular 6/7 (circa 2018). In
+> practice it has proven very difficult to reproduce in Angular 17+. Zone.js's RAF handling has
+> been refined over those releases, and the specific timing window may rarely or never open in
+> modern builds. The `runOutsideAngular` pattern below is still the correct way to call any
+> Leaflet API that relies on native event sequencing — apply it if you observe dropped callbacks
+> in your own application rather than proactively.
+
 **Fix: call `zoomToShowLayer` outside Angular's zone**
 
 ```typescript
@@ -53,9 +60,6 @@ export class MyComponent {
 `requestAnimationFrame` behavior that `leaflet.markercluster` depends on. Calling
 `this.zone.run()` inside the callback re-enters the zone so that any Angular state updates
 trigger change detection normally.
-
-The [demo app](../src/app/zoom-to-show/zoom-to-show-demo.component.ts) includes a live example
-of both patterns with a status log showing whether the callback fired.
 
 ---
 
