@@ -63,6 +63,57 @@ trigger change detection normally.
 
 ---
 
+## Using Sub-Plugins (LayerSupport, Freezable)
+
+Some `leaflet.markercluster` sub-plugins require the cluster group to be created with a
+different factory function — for example `L.markerClusterGroup.layerSupport()` or
+`L.markerClusterGroup.freezable()`. The default `[leafletMarkerCluster]` directive always
+calls `L.markerClusterGroup()` internally, so you cannot use these sub-plugins without
+providing the group yourself.
+
+**Solution: use `[leafletMarkerClusterGroup]` to pass in a pre-created group.**
+
+```typescript
+import { Component } from '@angular/core';
+import { latLng, Layer } from 'leaflet';
+declare const L: any; // or import via your preferred method
+
+@Component({
+  template: `
+    <div leaflet
+      [leafletOptions]="options"
+      [leafletMarkerCluster]="markerData"
+      [leafletMarkerClusterGroup]="clusterGroup"
+      (leafletMarkerClusterReady)="onClusterReady($event)">
+    </div>
+  `
+})
+export class MyComponent {
+
+  // Create the group with the sub-plugin factory before binding
+  clusterGroup = L.markerClusterGroup.layerSupport();
+
+  markerData: Layer[] = [ /* ... */ ];
+  options = { zoom: 4, center: latLng(0, 0) };
+
+  onClusterReady(group: any) {
+    // group === this.clusterGroup — the directive emits the provided instance
+  }
+
+}
+```
+
+**Notes:**
+
+- `[leafletMarkerClusterOptions]` is ignored when `[leafletMarkerClusterGroup]` is provided.
+  Pass options directly to the factory call instead: `L.markerClusterGroup.layerSupport({ maxClusterRadius: 80 })`.
+- The directive will **not** remove a provided group from the map on destroy — the caller
+  owns its lifecycle.
+- When `[leafletMarkerClusterGroup]` is absent, the directive creates its own group as it
+  always has — fully backwards compatible.
+
+---
+
 ## Troubleshooting: `L.markerClusterGroup is not a function`
 
 This is the most common issue when using this library with Angular 17+ (which uses esbuild by default). It appears as:

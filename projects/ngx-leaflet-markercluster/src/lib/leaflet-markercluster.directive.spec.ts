@@ -42,7 +42,7 @@ describe('LeafletMarkerClusterDirective', () => {
 		let mockClusterGroup: jasmine.SpyObj<any>;
 
 		beforeEach(() => {
-			mockClusterGroup = jasmine.createSpyObj('MarkerClusterGroup', ['clearLayers', 'addLayers', 'addTo']);
+			mockClusterGroup = jasmine.createSpyObj('MarkerClusterGroup', ['clearLayers', 'addLayers', 'addTo', 'remove']);
 			mockClusterGroup.addTo.and.returnValue(mockClusterGroup);
 
 			instance = new LeafletMarkerClusterDirective(null as any);
@@ -80,6 +80,63 @@ describe('LeafletMarkerClusterDirective', () => {
 
 			expect(mockClusterGroup.clearLayers).not.toHaveBeenCalled();
 			expect(mockClusterGroup.addLayers).not.toHaveBeenCalled();
+		});
+
+	});
+
+
+	// -------------------------------------------------------------------------
+	// [leafletMarkerClusterGroup] input — ownership and lifecycle tests
+	// -------------------------------------------------------------------------
+
+	describe('[leafletMarkerClusterGroup] input', () => {
+
+		let instance: LeafletMarkerClusterDirective;
+		let mockProvidedGroup: jasmine.SpyObj<any>;
+
+		beforeEach(() => {
+			mockProvidedGroup = jasmine.createSpyObj('MarkerClusterGroup', ['clearLayers', 'addLayers', 'addTo', 'remove']);
+			mockProvidedGroup.addTo.and.returnValue(mockProvidedGroup);
+
+			instance = new LeafletMarkerClusterDirective(null as any);
+		});
+
+		it('uses provided group and sets _ownsMCG to false', () => {
+			instance.inputClusterGroup = mockProvidedGroup;
+			instance.markerClusterGroup = mockProvidedGroup;
+			// Simulate state that ngOnInit would produce with a provided group
+			(instance as any)._ownsMCG = false;
+
+			expect(instance.markerClusterGroup).toBe(mockProvidedGroup);
+			expect((instance as any)._ownsMCG).toBeFalse();
+		});
+
+		it('ngOnDestroy does NOT call remove() on a caller-provided group', () => {
+			instance.markerClusterGroup = mockProvidedGroup;
+			(instance as any)._ownsMCG = false;
+
+			instance.ngOnDestroy();
+
+			expect(mockProvidedGroup.remove).not.toHaveBeenCalled();
+		});
+
+		it('ngOnDestroy calls remove() on a directive-owned group', () => {
+			const mockOwnedGroup = jasmine.createSpyObj('MarkerClusterGroup', ['clearLayers', 'addLayers', 'addTo', 'remove']);
+			mockOwnedGroup.addTo.and.returnValue(mockOwnedGroup);
+
+			instance.markerClusterGroup = mockOwnedGroup;
+			(instance as any)._ownsMCG = true;
+
+			instance.ngOnDestroy();
+
+			expect(mockOwnedGroup.remove).toHaveBeenCalled();
+		});
+
+		it('ngOnDestroy is safe when markerClusterGroup is null', () => {
+			instance.markerClusterGroup = null;
+			(instance as any)._ownsMCG = true;
+
+			expect(() => instance.ngOnDestroy()).not.toThrow();
 		});
 
 	});
@@ -155,6 +212,67 @@ describe('LeafletMarkerClusterDirective smoke tests', () => {
 		directive.markerData = layers;
 		directive.ngOnChanges({ markerData: { currentValue: layers, previousValue: [], firstChange: false, isFirstChange: () => false } });
 		expect(directive.markerClusterGroup.getLayers().length).toBe(2);
+	});
+
+});
+
+
+// ---------------------------------------------------------------------------
+// Smoke tests — pre-created MarkerClusterGroup via [leafletMarkerClusterGroup]
+// ---------------------------------------------------------------------------
+
+@Component({
+	standalone: false,
+	template: `<div leaflet
+		[leafletOptions]="options"
+		[leafletMarkerCluster]="markerData"
+		[leafletMarkerClusterGroup]="preCreatedGroup"
+		(leafletMapReady)="onMapReady($event)"
+		(leafletMarkerClusterReady)="onClusterReady($event)">
+	</div>`
+})
+class TestHostWithProvidedGroupComponent {
+	options = { zoom: 4, center: latLng(0, 0), maxZoom: 18 };
+	markerData: Layer[] = [];
+	// Create the group manually (simulates what a caller using a sub-plugin would do)
+	preCreatedGroup: MarkerClusterGroup = window.L.markerClusterGroup();
+	map: LeafletMap;
+	clusterGroup: MarkerClusterGroup;
+	onMapReady(m: LeafletMap) { this.map = m; }
+	onClusterReady(g: MarkerClusterGroup) { this.clusterGroup = g; }
+}
+
+describe('LeafletMarkerClusterDirective smoke tests — pre-created group', () => {
+
+	let fixture: ComponentFixture<TestHostWithProvidedGroupComponent>;
+	let host: TestHostWithProvidedGroupComponent;
+
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			imports: [ LeafletModule, LeafletMarkerClusterModule ],
+			declarations: [ TestHostWithProvidedGroupComponent ]
+		});
+		fixture = TestBed.createComponent(TestHostWithProvidedGroupComponent);
+		host = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+
+	afterEach(() => {
+		fixture.destroy();
+	});
+
+	it('uses the provided group rather than creating a new one', () => {
+		const directive = fixture.debugElement.children[0].injector.get(LeafletMarkerClusterDirective);
+		expect(directive.markerClusterGroup).toBe(host.preCreatedGroup);
+	});
+
+	it('emits the provided group via markerClusterReady', () => {
+		expect(host.clusterGroup).toBe(host.preCreatedGroup);
+	});
+
+	it('does not own the provided group (_ownsMCG is false)', () => {
+		const directive = fixture.debugElement.children[0].injector.get(LeafletMarkerClusterDirective);
+		expect((directive as any)._ownsMCG).toBeFalse();
 	});
 
 });
