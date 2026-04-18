@@ -64,12 +64,14 @@ You must specify an initial zoom/center and set of layers either via ```leafletO
 Full API documentation is in [docs/API.md](docs/API.md). It covers:
 - `[leafletMarkerCluster]` — directive activation and data input
 - `[leafletMarkerClusterOptions]` — options passed through to `leaflet.markercluster`
+- `[leafletMarkerClusterGroup]` — optional pre-created `MarkerClusterGroup` (use with sub-plugins)
 - `(leafletMarkerClusterReady)` — output event for accessing the `MarkerClusterGroup` instance
 
 
 ## Cookbook
 
 Common patterns and examples are in [docs/cookbook.md](docs/cookbook.md), including:
+- [Using Sub-Plugins (LayerSupport, Freezable)](docs/cookbook.md#using-sub-plugins-layersupport-freezable) — pass a pre-created `MarkerClusterGroup` via `[leafletMarkerClusterGroup]` to use sub-plugin factories
 - [zoomToShowLayer Callback Not Firing](docs/cookbook.md#zoomtoshowlayer-callback-not-firing) — using `NgZone.runOutsideAngular()` to fix the zone.js timing issue
 - [Troubleshooting: `L.markerClusterGroup is not a function`](docs/cookbook.md#troubleshooting-lmarkerclustergroup-is-not-a-function) — three fixes for the esbuild/CommonJS interop issue
 
