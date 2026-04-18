@@ -16,9 +16,10 @@
 			<p>
 				The target is <strong>NYC (40.71, -74.00)</strong>, clustered with 199 other
 				nearby markers. Both buttons run <strong>{{ trialCount }} trials</strong> with
-				identical zone pressure (a RAF loop + setInterval flood inside the Angular zone).
-				The only difference is whether <code>zoomToShowLayer</code> itself is called
-				inside or outside the zone.
+				identical zone pressure (RAF loop + setInterval flood). Map interaction is
+				disabled during trials so that manual zoom/pan can't interfere — the only
+				variable is whether <code>zoomToShowLayer</code> is called inside or outside
+				the zone.
 			</p>
 
 			<!-- Controls -->
@@ -27,14 +28,16 @@
 						[disabled]="!map || !markerClusterGroup"
 						(click)="resetView()">Reset View</button>
 				<button type="button" class="btn btn-danger mr-2"
-						[disabled]="!map || !markerClusterGroup"
+						[disabled]="!map || !markerClusterGroup || runningMode !== null"
 						(click)="zoomBroken()">
-					@if (isRunning) { Running… } @else { Run {{ trialCount }} Trials (broken — inside zone) }
+					@if (runningMode === 'broken') { Running… }
+					@else { Run {{ trialCount }} Trials (broken — inside zone) }
 				</button>
 				<button type="button" class="btn btn-success"
-						[disabled]="!map || !markerClusterGroup"
+						[disabled]="!map || !markerClusterGroup || runningMode !== null"
 						(click)="zoomFixed()">
-					@if (isRunning) { Running… } @else { Run {{ trialCount }} Trials (fixed — outside zone) }
+					@if (runningMode === 'fixed') { Running… }
+					@else { Run {{ trialCount }} Trials (fixed — outside zone) }
 				</button>
 			</form>
 
@@ -50,7 +53,7 @@
 				</div>
 			}
 
-			<!-- Map -->
+			<!-- Map — note: interaction is disabled during trials -->
 			<div leaflet style="height: 500px;"
 				 [leafletOptions]="options"
 				 (leafletMapReady)="onMapReady($event)"
