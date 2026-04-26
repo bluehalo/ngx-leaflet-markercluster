@@ -1,8 +1,11 @@
 # @bluehalo/ngx-leaflet-markercluster
 
+[![NPM version][npm-image]][npm-url]
 [![Build Status][ci-image]][ci-url]
 [![Code Coverage][coverage-image]][coverage-url]
 
+[npm-url]: https://www.npmjs.com/package/@bluehalo/ngx-leaflet-markercluster
+[npm-image]: https://img.shields.io/npm/v/%40bluehalo%2Fngx-leaflet-markercluster
 [ci-url]: https://github.com/bluehalo/ngx-leaflet-markercluster/actions/workflows/ci.yml
 [ci-image]: https://github.com/bluehalo/ngx-leaflet-markercluster/actions/workflows/ci.yml/badge.svg
 [coverage-url]: https://codecov.io/gh/bluehalo/ngx-leaflet-markercluster
