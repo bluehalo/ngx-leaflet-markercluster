@@ -1,5 +1,8 @@
 # Changelog
 
+## 22.0.0
+Support for Angular.io 22.
+
 ## 21.1.0
 - Feature: add `[leafletMarkerClusterGroup]` input to accept a pre-created `MarkerClusterGroup`, enabling sub-plugins such as `leaflet.markercluster.layersupport` and `leaflet.markercluster.freezable` (closes #42)
 - Fix: add `ngOnDestroy` — directive-created groups are now removed from the map when the directive is destroyed

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { latLng, Map as LeafletMap, Layer, marker, MarkerClusterGroup } from 'leaflet';
 
@@ -150,6 +150,7 @@ describe('LeafletMarkerClusterDirective', () => {
 
 @Component({
 	standalone: false,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `<div leaflet
 		[leafletOptions]="options"
 		[leafletMarkerCluster]="markerData"
@@ -223,6 +224,7 @@ describe('LeafletMarkerClusterDirective smoke tests', () => {
 
 @Component({
 	standalone: false,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `<div leaflet
 		[leafletOptions]="options"
 		[leafletMarkerCluster]="markerData"

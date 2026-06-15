@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
@@ -10,6 +10,7 @@ import { LeafletMarkerClusterDirective } from '../../../projects/ngx-leaflet-mar
 @Component({
     selector: 'markercluster-demo',
     templateUrl: './markercluster-demo.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
 		LeafletModule,
 		LeafletMarkerClusterDirective,
