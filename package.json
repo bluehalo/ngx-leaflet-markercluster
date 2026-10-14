@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.0.1",
-    "@angular/cli": "^22.0.1",
+    "@angular/cli": "^22.2.2",
     "@angular/compiler-cli": "^22.0.1",
     "@types/jasmine": "~4.3.1",
     "@types/leaflet": "1",
